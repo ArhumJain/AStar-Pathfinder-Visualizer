@@ -56,4 +56,4 @@ class Node():
 buildGrid()
 for i in range(0,10):
     for j in range(0,10):
-        print(null[i][j].fCost, ":", null[i][j].x, null[i][j].y)
+        print(null[i][j].hCost, ":", null[i][j].x, null[i][j].y)
