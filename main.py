@@ -1,24 +1,32 @@
 ids = []
+grid = []
+#Not known
 null = []
+#Visited
 closed = []
+#Seen but not visited
 open = []
 def buildGrid():
     idcount = 1
     for i in range(1, 11):
+        grid.append([])
         null.append([])
         for j in range(1, 11):
             null[i - 1].append(Node(idcount, j - 1, i - 1))
+            grid[i - 1].append(Node(idcount, j - 1, i - 1))
             idcount += 1
 class Node():
     end = (7,2)
     start = (2,7)
     def __init__(self, id, x, y, parent = None):
+        self.isObstacle = False
         self.id = id
         self.x = x
         self.y = y
         self.parent = parent
         self.hCost = self.findHCost(Node.end)
         self.gCost = self.findHCost(Node.start)
+        self.fCost = self.hCost+self.gCost
     def findHCost(self, end):
         endx = end[0]
         endy = end[1]
@@ -57,3 +65,16 @@ buildGrid()
 for i in range(0,10):
     for j in range(0,10):
         print(null[i][j].hCost, ":", null[i][j].x, null[i][j].y)
+
+
+end = null[Node.end[0]][Node.end[1]]
+closed.append(null[Node.start[0]][Node.start[1]])
+null[Node.start[0]].pop(Node.start[1])
+
+
+currentnode = 9
+while end not in closed:
+    pass
+
+
+
