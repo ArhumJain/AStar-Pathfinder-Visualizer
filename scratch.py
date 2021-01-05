@@ -6,8 +6,6 @@ array = [
     [0,0,0,0,0]
 ]
 
-
-"""
 result = []
 
 def findAdjacent(x, y):
@@ -19,11 +17,3 @@ def findAdjacent(x, y):
 
 findAdjacent(4, 4)
 print(result)
-"""
-while True:
-    x = input("Grocery Store\n--------\nChoose the following:\n--------\nBuy Item\nSee Items\n\n")
-    print(x)
-    print(x.lower())
-    if x.lower() == "buy items":
-        print("yes")
-        item_buy = input(f"Balance: 123456\n--------\nWhat would you like to buy")
