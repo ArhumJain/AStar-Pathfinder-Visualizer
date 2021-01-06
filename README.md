@@ -9,4 +9,6 @@ A* Pathfinding visualizer - 1/5/2021
 
 -> Hit "v" before running the program to watch the algorithm in action!
 
+-> Hit "c" to clear the grid
+
 (Might add more features like timer and find shortest path between multiple sets of points...)

@@ -9,13 +9,12 @@ class Node():
     start = (-1,-1)
     def __init__(self, id, x, y, parent = None):
         global grid
-        global null
         self.isObstacle = False
         self.id = id
         self.x = x
         self.y = y
         self.parent = parent
-        self.hCost = None
+        self.hCost = 0
         self.gCost = None
         self.fCost = None
         grid[self.y].append(self)
@@ -69,8 +68,8 @@ def findAdjacent(x, y):
         for dy in range(-1,2):
             if dx != 0 or dy != 0:
                 if (x + dx > -1) and (x+dx < int(len(grid[0]))) and (y+dy > -1) and (y+dy < int(len(grid))):
+                    grid[y+dy][x+dx].hCost = grid[y+dy][x+dx].findHCost(Node.end)
                     if grid[y+dy][x+dx] not in closed and grid[y+dy][x+dx].isObstacle == False:
-                        grid[y+dy][x+dx].hCost = grid[y+dy][x+dx].findHCost(Node.end)
                         if (dx == -1 or dx == 1) and (dy == -1 or dy == 1):
                             gcost = grid[y][x].gCost + 14
                             fcost = gcost + grid[y+dy][x+dx].hCost
@@ -181,6 +180,17 @@ while run:
                     doPathFind = True
             elif event.key == pygame.K_v:
                 visualizer = True
+            elif event.key == pygame.K_c and doPathFind == False:
+                open.clear()
+                closed.clear()
+                path.clear()
+                grid.clear()
+                startset = False
+                endset = False
+                Node.end = (-1,-1)
+                Node.start = (-1,-1)
+                buildGrid()
+                
     if doPathFind == True:
         if end not in closed:
             findAdjacent(currentnode.x, currentnode.y)
