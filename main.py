@@ -106,28 +106,27 @@ def drawRect(color, row, column):
 def bgupdategrid(visualizer):
     for row in range(0,50):
         for column in range(0,50):
+            CHOSENCOLOR = WHITE
             if visualizer == True:
-                if grid[row][column].isObstacle == True:
-                    drawRect(BLACK, row, column)
+                if grid[row][column].isObstacle:
+                    CHOSENCOLOR = BLACK
                 elif grid[row][column] in path:
-                    drawRect(BLUE, row, column)
+                    CHOSENCOLOR = BLUE
                 elif (row == Node.start[1] and column == Node.start[0]) or (row == Node.end[1] and column == Node.end[0]): #(row == Node.start[0] or row == Node.end[0]) and (column == Node.end[1] or column == Node.start[1]):
-                    drawRect(BLUE, row, column)
+                    CHOSENCOLOR = BLUE
                 elif grid[row][column] in open:
-                    drawRect(GREEN, row, column)
+                    CHOSENCOLOR = GREEN
                 elif grid[row][column] in closed:
-                    drawRect(RED, row, column)
-                else:
-                    drawRect(WHITE, row, column)
+                    CHOSENCOLOR = RED
             else:
-                if grid[row][column].isObstacle == True:
-                    drawRect(BLACK, row, column)
+                if grid[row][column].isObstacle:
+                    CHOSENCOLOR = BLACK
                 elif grid[row][column] in path:
-                    drawRect(BLUE, row, column)
+                    CHOSENCOLOR = BLUE
                 elif (row == Node.start[1] and column == Node.start[0]) or (row == Node.end[1] and column == Node.end[0]): #(row == Node.start[0] or row == Node.end[0]) and (column == Node.end[1] or column == Node.start[1]):
-                    drawRect(BLUE, row, column)
-                else:
-                    drawRect(WHITE, row, column)
+                    CHOSENCOLOR = BLUE
+                    
+            drawRect(CHOSENCOLOR, row, column)
 
 buildGrid()
 WINWIDTH = 800
@@ -190,15 +189,24 @@ while run:
                 Node.end = (-1,-1)
                 Node.start = (-1,-1)
                 buildGrid()
-                
     if doPathFind == True:
         if end not in closed:
             findAdjacent(currentnode.x, currentnode.y)
             opendict = {}
+            hdict = {}
             for i in open:
                 opendict[i] = i.fCost
             fmin = min(opendict.values()) 
-            minlist = [key for key in opendict if opendict[key] == fmin]
+            fminlist = [key for key in opendict if opendict[key] == fmin]
+            minlist = []
+            for i in fminlist:
+                hdict[i] = i.hCost
+            hmin = min(hdict.values())
+            if int(len(fminlist)) > 1:
+                hminlist = [key for key in hdict if hdict[key] == hmin]
+                minlist.append(hminlist[0])
+            else:
+                minlist.append(fminlist[0])
             open.remove(grid[minlist[0].y][minlist[0].x])
             closed.append(grid[minlist[0].y][minlist[0].x])
             currentnode = grid[minlist[0].y][minlist[0].x]
