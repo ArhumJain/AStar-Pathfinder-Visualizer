@@ -1,4 +1,7 @@
+# WARNING: EXTREMELY BAD CODE AHEAD!!! Seriously. Don't waste your life trying to comprehend this code. This was merely a "proof of concept"
+# that I COULD make something like this. It was also good PRACTICE. Just a heads up :). Create a new issue if you find any bugs!
 import pygame
+import math
 ids = []
 grid = []
 closed = []
@@ -49,7 +52,6 @@ class Node():
                     return (((max(junctionx, self.x)) - (min(junctionx, self.x))) * 14) + ((junctiony - endy) * 10)
             else:
                 return ((junctionx-self.x)*14)+((endx-junctionx)*10)
-
         elif self.x > endx:
             junctionx = self.x-(max(endy, self.y) - min(endy, self.y))
             junctiony = endy
@@ -73,7 +75,6 @@ def findAdjacent(x, y):
                         if (dx == -1 or dx == 1) and (dy == -1 or dy == 1):
                             gcost = grid[y][x].gCost + 14
                             fcost = gcost + grid[y+dy][x+dx].hCost
-
                         else:
                             gcost = grid[y][x].gCost + 10
                             fcost = gcost + grid[y+dy][x+dx].hCost
@@ -169,10 +170,13 @@ while run:
             elif startset == True and endset == True:
                 drawObstacle = True
         elif pygame.mouse.get_pressed()[0] and drawObstacle == True:
-            mouse_x, mouse_y = event.pos
-            board_x, board_y = windowToBoardCoord(mouse_x, mouse_y)
-            grid[board_y][board_x].isObstacle = True
-            grid[board_y][board_x+1].isObstacle = True
+            try:
+                mouse_x, mouse_y = event.pos
+                board_x, board_y = windowToBoardCoord(mouse_x, mouse_y)
+                grid[board_y][board_x].isObstacle = True
+                grid[board_y][board_x+1].isObstacle = True
+            except:
+                pass
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 if startset == True and endset == True:
@@ -186,6 +190,7 @@ while run:
                 grid.clear()
                 startset = False
                 endset = False
+                drawObstacle = False
                 Node.end = (-1,-1)
                 Node.start = (-1,-1)
                 buildGrid()
