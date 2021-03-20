@@ -13,7 +13,10 @@ A* Pathfinding visualizer - 1/5/2021
 
 
 Demo:
-<iframe> src="https://youtu.be/wndRkcMtqs4"> </iframe>
+
+https://user-images.githubusercontent.com/75106472/111888550-c5b6ea00-899a-11eb-9c91-bf70bb4e85c2.mp4
+
+
 
 (Might add more features like timer and find shortest path between multiple sets of points...)
 
